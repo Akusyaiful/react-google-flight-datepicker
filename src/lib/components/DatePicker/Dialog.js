@@ -1,20 +1,20 @@
-import React, { useEffect, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-
-import BackIcon from '../../assets/svg/back.svg';
-import DateInputGroup from './DateInputGroup';
-import DialogContentMobile from './DialogContentMobile';
-import DialogContentDesktop from './DialogContentDesktop';
+import React, { useEffect, useState, useRef } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import CloseIcon from "../../assets/svg/close.svg";
+import DateInputGroup from "./DateInputGroup";
+import DialogContentMobile from "./DialogContentMobile";
 
 const Dialog = ({
+  contentFooter,
+  dataPrice,
+  submitButton,
   toggleDialog,
   complsOpen,
   fromDate,
   toDate,
   hoverDate,
   onSelectDate,
-  onHoverDate,
   handleReset,
   handleClickDateInput,
   inputFocus,
@@ -35,6 +35,7 @@ const Dialog = ({
   dateInputSeperator,
   singleCalendar,
   tooltip,
+  disableDate,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
   const [dateChanged, setDateChanged] = useState();
@@ -52,7 +53,9 @@ const Dialog = ({
     if (complsOpen) {
       setTimeout(() => {
         if (containerRef.current && containerRef.current.getElementById) {
-          const startDateInput = containerRef.current.getElementById('start-date-input-button');
+          const startDateInput = containerRef.current.getElementById(
+            "start-date-input-button"
+          );
           if (startDateInput) {
             startDateInput.focus();
           }
@@ -63,22 +66,21 @@ const Dialog = ({
 
   return (
     <div
-      className={cx('dialog-date-picker', {
+      className={cx("dialog-date-picker", {
         open: complsOpen,
         hide: !complsOpen && hideAnimation,
         single: singleCalendar && !isMobile,
       })}
       ref={containerRef}
     >
-      {!hideDialogHeader
-        && (
+      {!hideDialogHeader && (
         <div className="dialog-header">
           <button
             type="button"
             className="btn-outline back-button"
             onClick={toggleDialog}
           >
-            <BackIcon viewBox="0 0 492 492" />
+            <CloseIcon />
           </button>
           <DateInputGroup
             inputFocus={inputFocus}
@@ -103,75 +105,63 @@ const Dialog = ({
             Reset
           </button>
         </div>
-        )}
+      )}
 
       <div className="dialog-content">
-        {isMobile
-          ? (
-            <DialogContentMobile
-              fromDate={fromDate}
-              toDate={toDate}
-              hoverDate={hoverDate}
-              onSelectDate={onSelectDate}
-              startWeekDay={startWeekDay}
-              minDate={minDate}
-              maxDate={maxDate}
-              dateFormat={dateFormat}
-              weekDayFormat={weekDayFormat}
-              monthFormat={monthFormat}
-              complsOpen={complsOpen}
-              isSingle={isSingle}
-              highlightToday={highlightToday}
-              tooltip={tooltip}
-            />
-          )
-          : (
-            <DialogContentDesktop
-              fromDate={fromDate}
-              toDate={toDate}
-              hoverDate={hoverDate}
-              onSelectDate={onSelectDate}
-              onHoverDate={onHoverDate}
-              startWeekDay={startWeekDay}
-              minDate={minDate}
-              maxDate={maxDate}
-              dateFormat={dateFormat}
-              weekDayFormat={weekDayFormat}
-              monthFormat={monthFormat}
-              isSingle={isSingle}
-              complsOpen={complsOpen}
-              dateChanged={dateChanged}
-              highlightToday={highlightToday}
-              singleCalendar={singleCalendar}
-              tooltip={tooltip}
-            />
-          )}
+        <DialogContentMobile
+          dataPrice={dataPrice}
+          fromDate={fromDate}
+          toDate={toDate}
+          hoverDate={hoverDate}
+          onSelectDate={onSelectDate}
+          startWeekDay={startWeekDay}
+          minDate={minDate}
+          maxDate={maxDate}
+          disableDate={disableDate}
+          dateFormat={dateFormat}
+          weekDayFormat={weekDayFormat}
+          monthFormat={monthFormat}
+          complsOpen={complsOpen}
+          isSingle={isSingle}
+          highlightToday={highlightToday}
+          tooltip={tooltip}
+        />
       </div>
-      {!hideDialogFooter
-        && (
+      {!hideDialogFooter && (
         <div className="dialog-footer">
-          <button type="button" className="submit-button" onClick={toggleDialog} tabIndex="0">
-            Done
-          </button>
-          <button
-            type="button"
-            className="btn-outline reset-button mobile"
-            onClick={handleReset}
-          >
-            Reset
-          </button>
+          {contentFooter}
+          <div className="button-wrapper">
+            <button
+              type="button"
+              className="btn-outline reset-button mobile"
+              onClick={handleReset}
+            >
+              Reset
+            </button>
+            <button
+              type="button"
+              className="submit-button"
+              onClick={submitButton}
+              tabIndex="0"
+            >
+              Save
+            </button>
+          </div>
         </div>
-        )}
+      )}
     </div>
   );
 };
 
 Dialog.propTypes = {
+  contentFooter: PropTypes.node,
+  dataPrice: PropTypes.object,
   complsOpen: PropTypes.bool,
   inputFocus: PropTypes.string,
   fromDate: PropTypes.instanceOf(Date),
   toDate: PropTypes.instanceOf(Date),
   hoverDate: PropTypes.instanceOf(Date),
+  submitButton: PropTypes.func,
   toggleDialog: PropTypes.func,
   handleClickDateInput: PropTypes.func,
   onSelectDate: PropTypes.func,
@@ -183,6 +173,7 @@ Dialog.propTypes = {
   startWeekDay: PropTypes.string,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
+  disableDate: PropTypes.instanceOf(Date),
   dateFormat: PropTypes.string,
   monthFormat: PropTypes.string,
   isSingle: PropTypes.bool,
@@ -201,11 +192,14 @@ Dialog.propTypes = {
 };
 
 Dialog.defaultProps = {
+  contentFooter: null,
+  dataPrice: null,
   complsOpen: false,
   inputFocus: null,
   fromDate: null,
   toDate: null,
   hoverDate: null,
+  submitButton: () => {},
   toggleDialog: () => {},
   handleClickDateInput: () => {},
   onSelectDate: () => {},
@@ -217,17 +211,18 @@ Dialog.defaultProps = {
   startWeekDay: null,
   minDate: null,
   maxDate: null,
-  dateFormat: '',
-  monthFormat: '',
+  disableDate: null,
+  dateFormat: "",
+  monthFormat: "",
   isSingle: false,
-  isMobile: false,
+  isMobile: true,
   highlightToday: false,
-  weekDayFormat: '',
+  weekDayFormat: "",
   hideDialogHeader: false,
   hideDialogFooter: false,
   dateInputSeperator: null,
   singleCalendar: false,
-  tooltip: '',
+  tooltip: "",
 };
 
 export default Dialog;

@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
+import React from "react";
+import PropTypes from "prop-types";
+import dayjs from "dayjs";
 
-import DateInput from './DateInput';
-import CalendarIcon from '../../assets/svg/calendar.svg';
+import DateInput from "./DateInput";
+import CalendarIcon from "../../assets/svg/calendar.svg";
 
 const DateInputGroup = ({
   showCalendarIcon,
@@ -23,41 +23,39 @@ const DateInputGroup = ({
   dateInputSeperator,
 }) => {
   function handleClickFromInput() {
-    handleClickDateInput('from');
+    handleClickDateInput("from");
   }
 
   function handleClickToInput() {
-    handleClickDateInput('to');
+    handleClickDateInput("to");
   }
 
   function getDateFromValue(action, value) {
-    if (action === 'prev') {
-      return dayjs(value).subtract(1, 'day');
+    if (action === "prev") {
+      return dayjs(value).subtract(1, "day");
     }
 
-    return dayjs(value).add(1, 'day');
+    return dayjs(value).add(1, "day");
   }
 
   function handleChangeFromDate(action, value) {
     const date = getDateFromValue(action, value);
-    handleChangeDate(date, 'from');
+    handleChangeDate(date, "from");
   }
 
   function handleChangeToDate(action, value) {
     const date = getDateFromValue(action, value);
-    handleChangeDate(date, 'to');
+    handleChangeDate(date, "to");
   }
 
   return (
     <div className="date-picker-input">
-      {showCalendarIcon
-        && <CalendarIcon className="icon-calendar mobile" viewBox="0 0 24 24" />}
       <div className="date-picker-date-group">
         <DateInput
           handleClickDateInput={handleClickFromInput}
           showIcon
-          tabIndex={nonFocusable ? '-1' : '0'}
-          isFocus={inputFocus === 'from'}
+          tabIndex={nonFocusable ? "-1" : "0"}
+          isFocus={inputFocus === "from"}
           value={fromDate}
           placeholder={startDatePlaceholder}
           handleChangeDate={handleChangeFromDate}
@@ -69,14 +67,14 @@ const DateInputGroup = ({
           minDate={minDate}
           maxDate={maxDate}
         />
-        {!isSingle && dateInputSeperator
-          && <div className="date-input-separator">{dateInputSeperator}</div>}
-        {!isSingle
-        && (
+        {!isSingle && dateInputSeperator && (
+          <div className="date-input-separator">{dateInputSeperator}</div>
+        )}
+        {!isSingle && (
           <DateInput
             handleClickDateInput={handleClickToInput}
             tabIndex="0"
-            isFocus={inputFocus === 'to'}
+            isFocus={inputFocus === "to"}
             value={toDate}
             placeholder={endDatePlaceholder}
             handleChangeDate={handleChangeToDate}
@@ -122,7 +120,7 @@ DateInputGroup.defaultProps = {
   handleChangeDate: () => {},
   startDatePlaceholder: null,
   endDatePlaceholder: null,
-  dateFormat: '',
+  dateFormat: "",
   isSingle: false,
   onFocus: () => {},
   nonFocusable: false,

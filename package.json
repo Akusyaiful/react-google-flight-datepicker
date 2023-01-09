@@ -1,10 +1,10 @@
 {
-  "name": "react-google-flight-datepicker",
-  "version": "0.1.19",
-  "description": "An ReactJS implementation for Google Flight date-picker by JSLancer team",
-  "author": "David Tran",
+  "name": "react-google-flight-datepicker-mobile",
+  "version": "0.1",
+  "description": "An ReactJS implementation for Google Flight date-picker by Muhammad Syaifullah",
+  "author": "Muhammad Syaifullah",
   "license": "MIT",
-  "homepage": "https://github.com/JSLancerTeam/react-google-flight-datepicker",
+  "homepage": "https://github.com/Akusyaiful/react-google-flight-datepicker",
   "main": "dist/index.js",
   "engines": {
     "node": ">=8",

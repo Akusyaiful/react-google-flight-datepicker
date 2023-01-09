@@ -1,12 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 .react-google-flight-datepicker {
   font-size: 1rem;
+  font-family: "Lato", sans-serif !important;
+
+  button {
+    font-family: "Lato", sans-serif !important;
+  }
+
+  ::-webkit-scrollbar {
+    width: 1px;
+  }
 
   & > * {
     box-sizing: border-box;
-  }
-
-  .date-picker-demo {
-    width: 400px;
   }
 
   .btn-outline {
@@ -22,6 +28,8 @@
     border-radius: 4px;
     background: white;
     padding: 6px;
+    max-width: 444px;
+    width: 100%;
 
     &.disabled {
       opacity: 0.6;
@@ -41,7 +49,6 @@
     font-size: 1rem;
     align-items: center;
     overflow: visible;
-
 
     svg {
       min-width: 24px;
@@ -75,7 +82,7 @@
   }
 
   .date:first-child::before {
-    content: '';
+    content: "";
     position: absolute;
     right: 0;
     top: 50%;
@@ -89,16 +96,19 @@
     display: flex;
     flex: 1 1 0px;
     align-items: center;
+    justify-content: center;
     height: 100%;
     font-size: 0.9rem;
     line-height: normal;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-weight: 700;
+    color: #2f9cf1;
   }
 
   .date-placeholder {
-    color: rgba(0, 0, 0, 0.56);
+    color: #2f9cf1;
   }
 
   .change-date-group {
@@ -166,8 +176,6 @@
   .dialog-date-picker {
     background: #fff;
     border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3),
-      0 4px 8px 3px rgba(60, 64, 67, 0.15);
     min-width: 200px;
     position: absolute;
     top: -2px;
@@ -179,7 +187,7 @@
     transform-origin: top left;
     opacity: 0;
     transform: scale(0);
-    
+
     &.single {
       width: 385px;
     }
@@ -207,12 +215,8 @@
 
   .date:focus,
   .date.is-focus {
-    background-color: #f4f8ff;
-
     &::after {
-      content: '';
-      margin: -1px;
-      border: 2px solid #1a73e8;
+      content: "";
       border-radius: 4px;
       position: absolute;
       pointer-events: none;
@@ -235,12 +239,11 @@
   }
 
   .reset-button {
-    font-size: 0.9rem;
-    padding: 0 8px;
-    height: 36px;
-    border-radius: 4px;
-    border: none;
-    color: #5f6368;
+    font-size: 16rem;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #e8e8e8;
+    color: #2f9cf1;
     min-width: 64px;
 
     &:hover {
@@ -256,7 +259,7 @@
     margin: 12px 38px 8px;
     overflow: hidden;
     min-height: 353px;
-    
+
     &.single {
       margin-left: 36px;
       margin-right: 36px;
@@ -265,7 +268,7 @@
 
   .tooltip-text {
     position: absolute;
-    background-color: #4285f4;
+    background-color: #2f9cf1;
     color: #fff;
     text-align: center;
     border-radius: 6px;
@@ -284,7 +287,7 @@
     content: "";
     margin-left: -6px;
     margin-bottom: -12px;
-    border-top-color: #4285f4;
+    border-top-color: #2f9cf1;
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -318,7 +321,7 @@
       position: absolute;
       left: -350px;
     }
-    
+
     &.single {
       margin-right: 39px;
     }
@@ -333,7 +336,6 @@
   .weekdays {
     width: 100%;
     font-size: 0.9rem;
-    color: rgba(0, 0, 0, 0.54);
     display: flex;
 
     .weekday {
@@ -357,6 +359,7 @@
 
   .day {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     cursor: pointer;
@@ -391,7 +394,7 @@
     &::after {
       border-radius: 100%;
       bottom: 0;
-      content: '';
+      content: "";
       height: 44px;
       left: 0;
       margin: auto;
@@ -404,7 +407,7 @@
 
     &:hover::after {
       background-color: #fff;
-      border: 2px solid #4285f4;
+      border: 2px solid #2f9cf1;
       bottom: -2px;
       left: -2px;
       right: -2px;
@@ -419,7 +422,7 @@
       }
 
       &::after {
-        background-color: #4285f4;
+        background-color: #2f9cf1;
         border-radius: 100%;
       }
 
@@ -429,7 +432,7 @@
     }
 
     &.highlight::before {
-      content: '';
+      content: "";
       width: 44px;
       height: 44px;
       position: absolute;
@@ -477,7 +480,7 @@
 
       &::after {
         border-radius: 100%;
-        background-color: #4285f4;
+        background-color: #2f9cf1;
       }
 
       &:hover::after {
@@ -497,6 +500,14 @@
     .text-day {
       position: relative;
       z-index: 3;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .text-price {
+      position: relative;
+      z-index: 3;
+      font-size: 10px;
+      font-weight: 700;
     }
   }
 
@@ -534,202 +545,210 @@
       cursor: default;
 
       svg {
-        fill: #93989e
+        fill: #93989e;
       }
     }
   }
 
   .dialog-footer {
-    align-items: center;
-    display: flex;
-    flex-direction: row-reverse;
-    padding: 8px;
+    padding: 16px;
+
+    .button-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
 
     .submit-button {
-      border-radius: 8px;
-      padding: 10px 8px;
+      border-radius: 5px;
+      padding: 12px;
       border: none;
       line-height: 16px;
       text-transform: uppercase;
       color: #fff;
-      background: #4285f4;
-      height: 36px;
+      background: #2f9cf1;
       min-width: 88px;
-      font-weight: 500;
-      font-size: 0.9rem;
+      font-size: 16px;
       cursor: pointer;
+      width: 100%;
     }
   }
 
-  /** RESPONSIVE MOBILE */
-  @media screen and (max-width: 768px) {
-    .date-picker-demo {
-      width: 100%;
+  .date-picker-demo {
+    width: 100%;
+  }
+
+  .date-picker-input {
+    height: 40px;
+    border: none;
+    border-radius: 0;
+    position: relative;
+  }
+
+  .date {
+    border: 1px solid #dadce0;
+    border-radius: 5px;
+    padding: 0 10px;
+    flex-grow: 1;
+
+    &:nth-child(2) {
+      margin-left: 10px;
     }
+
+    &.is-focus {
+      height: 40px;
+    }
+  }
+
+  .date:first-child::before {
+    display: none;
+  }
+
+  .icon-calendar {
+    display: none;
+
+    &.mobile {
+      display: block;
+    }
+  }
+
+  .reset-button {
+    display: none;
+
+    &.mobile {
+      display: block;
+      border: 1px solid #e8e8e8;
+      border-radius: 5px;
+      color: #2f9cf1;
+      min-width: 88px;
+      width: 100%;
+      padding: 12px;
+      text-transform: uppercase;
+      font-size: 16px;
+    }
+  }
+
+  .change-date-group,
+  .divider,
+  .calendar-flippers,
+  .weekdays {
+    display: none;
+  }
+
+  .back-button {
+    display: block;
+    width: 56px;
+    height: 100%;
+    margin-right: 16px;
+    padding: 0;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  .dialog-date-picker {
+    border-radius: 0;
+    max-width: 444px;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    position: fixed;
+    left: 50%;
+    margin-left: -220px;
+    bottom: 10px;
+    top: 100%;
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transform: none;
+    z-index: 999999999;
+
+    &.open {
+      transition: all 0.2s ease-out;
+      transform: translate(0, -100%);
+      animation: none;
+    }
+
+    &.hide {
+      transition: all 0.2s ease-in;
+      transform: translate(0, 0);
+      animation: none;
+    }
+  }
+
+  .dialog-header {
+    padding: 16px;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 8px;
+    z-index: 50;
 
     .date-picker-input {
       height: 40px;
-      border: none;
-      border-radius: 0;
-      position: relative;
+      width: 100%;
     }
+  }
 
-    .date {
-      border: 1px solid #dadce0;
-      border-radius: 5px;
-      padding: 0 10px;
-      flex-grow: 1;
+  .dialog-content {
+    border: none;
+    overflow: hidden;
+    height: 100%;
+  }
 
-      &:nth-child(2) {
-        margin-left: 10px;
-      }
+  .calendar-wrapper {
+    margin: 0;
+    height: 100%;
+    display: flex;
+  }
 
-      &.is-focus {
-        height: 40px;
-      }
-    }
+  .calendar-content {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    flex-grow: 1;
+  }
 
-    .date:first-child::before {
-      display: none;
-    }
+  .weekdays.mobile {
+    display: flex;
+  }
 
-    .icon-calendar {
-      display: none;
+  .month-calendar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+  }
 
-      &.mobile {
-        display: block;
-      }
-    }
+  .day {
+    width: (100% / 7);
+    max-width: (100% / 7);
 
-    .reset-button {
-      display: none;
+    &.selected:hover,
+    &.hovered:hover {
+      color: #fff !important;
 
-      &.mobile {
-        display: block;
-        color: rgba(0, 0, 0, 0.87);
-        min-width: 88px;
-        font-weight: 500;
-      }
-    }
-
-    .change-date-group,
-    .divider,
-    .calendar-flippers,
-    .weekdays {
-      display: none;
-    }
-
-    .back-button {
-      display: block;
-      width: 56px;
-      height: 100%;
-      margin-right: 16px;
-      padding: 0;
-
-      svg {
-        width: 20px;
-        height: 20px;
-        fill: rgba(0, 0, 0, 0.7);
+      &::after {
+        background-color: #2f9cf1 !important;
       }
     }
+  }
 
+  .month-name {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .dialog-footer {
+    padding: 16px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px -4px 10px -10px;
+  }
+
+  @media screen and (max-width: 768px) {
     .dialog-date-picker {
-      border-radius: 0;
-      width: 100%;
-      height: 100%;
-      max-height: 100%;
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 10px;
-      top: 100%;
-      display: flex;
-      flex-direction: column;
-      opacity: 1;
-      transform: none;
-      z-index: 999999999;
-
-      &.open {
-        transition: all 0.2s ease-out;
-        transform: translate(0, -100%);
-        animation: none;
-      }
-
-      &.hide {
-        transition: all 0.2s ease-in;
-        transform: translate(0, 0);
-        animation: none;
-      }
-    }
-
-    .dialog-header {
-      padding: 8px;
-      box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);
-      z-index: 50;
-
-      .date-picker-input {
-        height: 40px;
-        width: 100%;
-      }
-    }
-
-    .dialog-content {
-      border: none;
-      overflow: hidden;
-      height: 100%;
-    }
-
-    .calendar-wrapper {
-      margin: 0;
-      height: 100%;
-      display: flex;
-    }
-
-    .calendar-content {
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      flex-direction: column;
-      flex-grow: 1;
-
-    }
-
-    .weekdays.mobile {
-      display: flex;
-      background-color: #f3f3f3;
-    }
-
-    .month-calendar {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .day {
-      width: (100% / 7);
-      max-width: (100% / 7);
-
-      &.selected:hover,
-      &.hovered:hover {
-        color: #fff !important;
-
-        &::after {
-          background-color: #4285f4 !important;
-        }
-      }
-    }
-
-    .month-name {
-      text-align: left;
-      margin-left: 10px;
-      margin-bottom: 0px;
-      margin-top: 25px;
-      font-weight: bold;
-    }
-
-    .dialog-footer {
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.24);
-      padding: 15px 8px;
+      margin-left: -213px;
     }
   }
 }

@@ -3,7 +3,7 @@ DatePicker examples:
 ###### RangeDatePicker
 
 ```js
-import { RangeDatePicker } from 'react-google-flight-datepicker';
+import RangeDatePicker from "./RangeDatePicker";
 
 <div className="react-google-flight-datepicker">
   <div className="date-picker-demo">
@@ -11,17 +11,18 @@ import { RangeDatePicker } from 'react-google-flight-datepicker';
       // startDatePlaceholder="My from date"
       // onChange={(startDate, endDate) => console.log(startDate, endDate)}
       // onFocus={(inputFocus) => console.log(inputFocus)}
-      startDate={new Date('2020-04-20')}
-      endDate={new Date('2020-05-25')}
+      startDate={new Date("2020-04-20")}
+      endDate={new Date("2020-05-25")}
       // startWeekDay="sunday"
-      minDate={new Date(2020, 1, 10)}
-      maxDate={new Date('2020-07-25')}
-      dateFormat="DD/MM/YYYY"
+      minDate={new Date("2023-01-01")}
+      maxDate={new Date("2023-12-31")}
+      dateFormat="DD MMM"
+      dataPrice="450 rb"
       // monthFormat="MMM --- YY"
       tooltip={(date) => {
-        return <div>{date.toDateString()}</div>
+        return <div>{date.toDateString()}</div>;
       }}
     />
   </div>
-</div>
+</div>;
 ```

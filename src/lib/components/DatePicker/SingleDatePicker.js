@@ -1,15 +1,13 @@
 /* eslint-disable react/jsx-no-bind */
-import React, {
-  useState, useRef, useEffect, useLayoutEffect,
-} from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import dayjs from 'dayjs';
-import { debounce } from '../../helpers';
-import './styles.scss';
-import DateInputGroup from './DateInputGroup';
-import Dialog from './Dialog';
-import DialogWrapper from './DialogWrapper';
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import dayjs from "dayjs";
+import { debounce } from "../../helpers";
+import "./styles.scss";
+import DateInputGroup from "./DateInputGroup";
+import Dialog from "./Dialog";
+import DialogWrapper from "./DialogWrapper";
 
 const SingleDatePicker = ({
   startDate,
@@ -39,7 +37,7 @@ const SingleDatePicker = ({
   const [isFirstTime, setIsFirstTime] = useState(false);
 
   function handleResize() {
-    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
       setIsMobile(true);
     } else {
       setIsMobile(false);
@@ -48,25 +46,27 @@ const SingleDatePicker = ({
 
   useLayoutEffect(() => {
     handleResize();
-    if (typeof window !== 'undefined') {
-      window.addEventListener('resize', handleResize);
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", handleResize);
 
-      return () => window.removeEventListener('resize', handleResize);
+      return () => window.removeEventListener("resize", handleResize);
     }
   }, []);
 
   function handleDocumentClick(e) {
     if (
-      containerRef.current
-      && containerRef.current.contains(e.target) === false
-      && window.innerWidth >= 768
+      containerRef.current &&
+      containerRef.current.contains(e.target) === false &&
+      window.innerWidth >= 768
     ) {
       setComplsOpen(false);
     }
   }
 
   function notifyChange() {
-    const _startDate = fromDateRef.current ? fromDateRef.current.toDate() : null;
+    const _startDate = fromDateRef.current
+      ? fromDateRef.current.toDate()
+      : null;
     onChange(_startDate);
   }
 
@@ -87,9 +87,9 @@ const SingleDatePicker = ({
       updateFromDate(dayjs(startDate), false);
     }
 
-    document.addEventListener('click', handleDocumentClick);
+    document.addEventListener("click", handleDocumentClick);
 
-    return () => document.removeEventListener('click', handleDocumentClick);
+    return () => document.removeEventListener("click", handleDocumentClick);
   }, []);
 
   useEffect(() => {
@@ -119,11 +119,14 @@ const SingleDatePicker = ({
       setComplsOpen(true);
     }
 
-    onFocus('Start Date');
+    onFocus("Check-In");
   }
 
   function onSelectDate(date) {
-    if ((minDate && dayjs(minDate).isAfter(date, 'date')) || (maxDate && dayjs(maxDate).isBefore(date, 'date'))) {
+    if (
+      (minDate && dayjs(minDate).isAfter(date, "date")) ||
+      (maxDate && dayjs(maxDate).isBefore(date, "date"))
+    ) {
       return;
     }
     updateFromDate(date, true);
@@ -145,7 +148,7 @@ const SingleDatePicker = ({
   return (
     <div className="react-google-flight-datepicker">
       <div
-        className={cx('date-picker', className, {
+        className={cx("date-picker", className, {
           disabled,
         })}
         ref={containerRef}
@@ -200,7 +203,7 @@ SingleDatePicker.propTypes = {
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
-  startWeekDay: PropTypes.oneOf(['monday', 'sunday']),
+  startWeekDay: PropTypes.oneOf(["monday", "sunday"]),
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
   dateFormat: PropTypes.string,
@@ -219,22 +222,22 @@ SingleDatePicker.propTypes = {
 
 SingleDatePicker.defaultProps = {
   startDate: null,
-  className: '',
+  className: "",
   disabled: false,
-  startDatePlaceholder: 'Date',
+  startDatePlaceholder: "Date",
   onChange: () => {},
   onFocus: () => {},
-  startWeekDay: 'monday',
-  weekDayFormat: 'dd',
+  startWeekDay: "monday",
+  weekDayFormat: "dd",
   minDate: null,
   maxDate: null,
-  dateFormat: '',
-  monthFormat: '',
+  dateFormat: "",
+  monthFormat: "",
   highlightToday: false,
   isOpen: false,
   onCloseCalendar: () => {},
   singleCalendar: false,
-  tooltip: '',
+  tooltip: "",
 };
 
 export default SingleDatePicker;

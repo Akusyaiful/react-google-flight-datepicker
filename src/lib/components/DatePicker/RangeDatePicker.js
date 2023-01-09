@@ -1,16 +1,15 @@
-import React, {
-  useState, useRef, useEffect, useLayoutEffect,
-} from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import dayjs from 'dayjs';
-import { debounce } from '../../helpers';
-import './styles.scss';
-import DateInputGroup from './DateInputGroup';
-import DialogWrapper from './DialogWrapper';
-import Dialog from './Dialog';
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import dayjs from "dayjs";
+import { debounce } from "../../helpers";
+import "./styles.scss";
+import DateInputGroup from "./DateInputGroup";
+import DialogWrapper from "./DialogWrapper";
+import Dialog from "./Dialog";
 
 const RangeDatePicker = ({
+  contentFooter,
   startDate,
   endDate,
   startDatePlaceholder,
@@ -33,10 +32,15 @@ const RangeDatePicker = ({
   isOpen,
   onCloseCalendar,
   tooltip,
+  dataPrice,
+  submitButton,
+  toggleDialog,
+  disableDate,
+  reset,
 }) => {
   const [complsOpen, setComplsOpen] = useState(false);
   const containerRef = useRef(null);
-  const [inputFocus, setInputFocus] = useState('from');
+  const [inputFocus, setInputFocus] = useState("from");
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
   const fromDateRef = useRef();
@@ -46,7 +50,7 @@ const RangeDatePicker = ({
   const [isMobile, setIsMobile] = useState(false);
 
   function handleResize() {
-    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
       setIsMobile(true);
     } else {
       setIsMobile(false);
@@ -55,25 +59,17 @@ const RangeDatePicker = ({
 
   useLayoutEffect(() => {
     handleResize();
-    if (typeof window !== 'undefined') {
-      window.addEventListener('resize', handleResize);
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", handleResize);
 
-      return () => window.removeEventListener('resize', handleResize);
+      return () => window.removeEventListener("resize", handleResize);
     }
   }, []);
 
-  function handleDocumentClick(e) {
-    if (
-      containerRef.current
-      && containerRef.current.contains(e.target) === false
-      && window.innerWidth >= 768
-    ) {
-      setComplsOpen(false);
-    }
-  }
-
   function notifyChange() {
-    const _startDate = fromDateRef.current ? fromDateRef.current.toDate() : null;
+    const _startDate = fromDateRef.current
+      ? fromDateRef.current.toDate()
+      : null;
     const _endDate = toDateRef.current ? toDateRef.current.toDate() : null;
     onChange(_startDate, _endDate);
   }
@@ -98,9 +94,6 @@ const RangeDatePicker = ({
 
   useEffect(() => {
     setIsFirstTime(true);
-    document.addEventListener('click', handleDocumentClick);
-
-    return () => document.removeEventListener('click', handleDocumentClick);
   }, []);
 
   useEffect(() => {
@@ -127,21 +120,18 @@ const RangeDatePicker = ({
 
   useEffect(() => {
     if (isFirstTime) {
-      const input = inputFocus === 'from'
-        ? 'Start Date'
-        : inputFocus === 'to'
-          ? 'End Date'
-          : '';
+      const input =
+        inputFocus === "from"
+          ? "Check-In"
+          : inputFocus === "to"
+          ? "Check-Out"
+          : "";
       onFocus(input);
     }
   }, [inputFocus]);
 
-  function toggleDialog() {
-    setComplsOpen(!complsOpen);
-  }
-
   function handleClickDateInput(inputFocus) {
-    if ((inputFocus === 'to' && !fromDate) || disabled) {
+    if ((inputFocus === "to" && !fromDate) || disabled) {
       return;
     }
 
@@ -154,12 +144,15 @@ const RangeDatePicker = ({
 
   function onSelectDate(date) {
     if (inputFocus) {
-      if (inputFocus === 'from' || (fromDate && date.isBefore(fromDate, 'date'))) {
+      if (
+        inputFocus === "from" ||
+        (fromDate && date.isBefore(fromDate, "date"))
+      ) {
         updateFromDate(date, true);
-        if (toDate && date.isAfter(toDate, 'date')) {
+        if (toDate && date.isAfter(toDate, "date")) {
           updateToDate(null, true);
         }
-        setInputFocus('to');
+        setInputFocus("to");
       } else {
         updateToDate(date, true);
         setInputFocus(null);
@@ -171,8 +164,8 @@ const RangeDatePicker = ({
       }
     } else {
       updateFromDate(date, true);
-      setInputFocus('to');
-      if (toDate && date.isAfter(toDate, 'date')) {
+      setInputFocus("to");
+      if (toDate && date.isAfter(toDate, "date")) {
         updateToDate(null, true);
       }
     }
@@ -183,37 +176,41 @@ const RangeDatePicker = ({
   }
 
   function handleReset() {
-    setInputFocus('from');
+    setInputFocus("from");
     setHoverDate(null);
     updateFromDate(null, true);
     updateToDate(null, true);
+    reset();
   }
 
   function handleChangeDate(value, input) {
-    if ((minDate && dayjs(minDate).isAfter(value, 'date')) || (maxDate && dayjs(maxDate).isBefore(value, 'date'))) {
+    if (
+      (minDate && dayjs(minDate).isAfter(value, "date")) ||
+      (maxDate && dayjs(maxDate).isBefore(value, "date"))
+    ) {
       return;
     }
 
-    if (input === 'from') {
-      setInputFocus('from');
+    if (input === "from") {
+      setInputFocus("from");
       updateFromDate(value, true);
       if (value > toDate) {
         updateToDate(null, true);
       }
     } else {
-      setInputFocus('to');
+      setInputFocus("to");
       updateToDate(value, true);
     }
   }
 
   function onDateInputFocus() {
-    handleClickDateInput('from');
+    handleClickDateInput("from");
   }
 
   return (
     <div className="react-google-flight-datepicker">
       <div
-        className={cx('date-picker', className, {
+        className={cx("date-picker", className, {
           disabled,
         })}
         ref={containerRef}
@@ -237,7 +234,10 @@ const RangeDatePicker = ({
 
         <DialogWrapper isMobile={isMobile}>
           <Dialog
+            contentFooter={contentFooter}
+            dataPrice={dataPrice}
             complsOpen={complsOpen}
+            submitButton={submitButton}
             toggleDialog={toggleDialog}
             handleClickDateInput={handleClickDateInput}
             inputFocus={inputFocus}
@@ -254,6 +254,7 @@ const RangeDatePicker = ({
             startWeekDay={startWeekDay}
             minDate={minDate}
             maxDate={maxDate}
+            disableDate={disableDate}
             weekDayFormat={weekDayFormat}
             dateFormat={dateFormat}
             monthFormat={monthFormat}
@@ -271,6 +272,8 @@ const RangeDatePicker = ({
 };
 
 RangeDatePicker.propTypes = {
+  contentFooter: PropTypes.node,
+  dataPrice: PropTypes.object,
   startDate: PropTypes.instanceOf(Date),
   endDate: PropTypes.instanceOf(Date),
   startDatePlaceholder: PropTypes.string,
@@ -279,9 +282,10 @@ RangeDatePicker.propTypes = {
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
-  startWeekDay: PropTypes.oneOf(['monday', 'sunday']),
+  startWeekDay: PropTypes.oneOf(["monday", "sunday"]),
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
+  disableDate: PropTypes.instanceOf(Date),
   dateFormat: PropTypes.string,
   monthFormat: PropTypes.string,
   highlightToday: PropTypes.bool,
@@ -292,6 +296,9 @@ RangeDatePicker.propTypes = {
   hideDialogAfterSelectEndDate: PropTypes.bool,
   isOpen: PropTypes.bool,
   onCloseCalendar: PropTypes.func,
+  submitButton: PropTypes.func,
+  toggleDialog: PropTypes.func,
+  reset: PropTypes.func,
   tooltip: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.node,
@@ -300,20 +307,23 @@ RangeDatePicker.propTypes = {
 };
 
 RangeDatePicker.defaultProps = {
+  contentFooter: null,
+  dataPrice: null,
   startDate: null,
   endDate: null,
-  className: '',
+  className: "",
   disabled: false,
-  startDatePlaceholder: 'Start date',
-  endDatePlaceholder: 'End date',
+  startDatePlaceholder: "Check-In",
+  endDatePlaceholder: "Check-Out",
   onChange: () => {},
   onFocus: () => {},
-  startWeekDay: 'monday',
+  startWeekDay: "sunday",
   minDate: null,
   maxDate: null,
-  weekDayFormat: 'dd',
-  dateFormat: '',
-  monthFormat: '',
+  disableDate: null,
+  weekDayFormat: "dd",
+  dateFormat: "",
+  monthFormat: "",
   highlightToday: false,
   dateInputSeperator: null,
   hideDialogHeader: false,
@@ -321,7 +331,10 @@ RangeDatePicker.defaultProps = {
   hideDialogAfterSelectEndDate: false,
   isOpen: false,
   onCloseCalendar: () => {},
-  tooltip: '',
+  submitButton: () => {},
+  toggleDialog: () => {},
+  reset: () => {},
+  tooltip: "",
 };
 
 export default RangeDatePicker;

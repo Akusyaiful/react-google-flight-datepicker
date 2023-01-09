@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
-import { VariableSizeList as List } from 'react-window';
-import AutoSizer from 'react-virtualized-auto-sizer';
-
-import MonthCalendar from './MonthCalendar';
-import { getMonthInfo, getWeekDay } from '../../helpers';
+import React, { useEffect, useState, useRef, forwardRef } from "react";
+import PropTypes from "prop-types";
+import dayjs from "dayjs";
+import { VariableSizeList as List } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
+import MonthCalendar from "./MonthCalendar";
+import { getMonthInfo, getWeekDay } from "../../helpers";
 
 const DialogContentMobile = ({
+  dataPrice,
   fromDate,
   toDate,
   hoverDate,
@@ -21,6 +21,7 @@ const DialogContentMobile = ({
   isSingle,
   highlightToday,
   tooltip,
+  disableDate,
 }) => {
   const [rowCount, setRowCount] = useState(2400);
   const minYear = minDate ? dayjs(minDate).year() : 1900;
@@ -29,21 +30,21 @@ const DialogContentMobile = ({
 
   useEffect(() => {
     if (maxDate) {
-      const _minDate = minDate ? dayjs(minDate) : dayjs('1900-01-01');
-      setRowCount(dayjs(maxDate).diff(_minDate, 'month') + 1);
+      const _minDate = minDate ? dayjs(minDate) : dayjs("1900-01-01");
+      setRowCount(dayjs(maxDate).diff(_minDate, "month") + 1);
     }
   }, []);
 
   useEffect(() => {
     if (listRef.current && complsOpen) {
       const date = fromDate ? dayjs(fromDate) : dayjs();
-      let monthDiff = date.diff(dayjs('1900-01-01'), 'month');
+      let monthDiff = date.diff(dayjs("1900-01-01"), "month");
 
       if (minDate) {
-        monthDiff = date.diff(dayjs(minDate), 'month');
+        monthDiff = date.diff(dayjs(minDate), "month");
       }
 
-      listRef.current.scrollToItem(monthDiff + 1, 'smart');
+      listRef.current.scrollToItem(monthDiff + 1, "smart");
     }
   }, [complsOpen]);
 
@@ -60,8 +61,9 @@ const DialogContentMobile = ({
     const { year, month } = getMonthYearFromIndex(index);
 
     return (
-      <div style={style}>
+      <div style={style} id="wrapper-month">
         <MonthCalendar
+          dataPrice={dataPrice}
           month={month}
           year={year}
           onSelectDate={onSelectDate}
@@ -71,6 +73,7 @@ const DialogContentMobile = ({
           startWeekDay={startWeekDay}
           minDate={minDate}
           maxDate={maxDate}
+          disableDate={disableDate}
           monthFormat={monthFormat}
           isSingle={isSingle}
           highlightToday={highlightToday}
@@ -82,7 +85,7 @@ const DialogContentMobile = ({
 
   function getItemSize(index) {
     const { year, month } = getMonthYearFromIndex(index);
-    const { totalWeek } = getMonthInfo(year, month, 'monday');
+    const { totalWeek } = getMonthInfo(year, month, "monday");
 
     return totalWeek.length * 48 + 34;
   }
@@ -109,24 +112,24 @@ const DialogContentMobile = ({
     const arrWeekDay = getWeekDay(startWeekDay, weekDayFormat);
 
     return arrWeekDay.map((day, index) => (
-      <div className="weekday" key={index}>{day}</div>
+      <div className="weekday" key={index}>
+        {day.slice(0, 1)}
+      </div>
     ));
   }
 
   return (
-    <div className="calendar-wrapper">
+    <div className="calendar-wrapper" id="mobile">
       <div className="calendar-content">
-        <div className="weekdays mobile">
-          {generateWeekDay()}
-        </div>
+        <div className="weekdays mobile">{generateWeekDay()}</div>
         {renderMonthCalendars()}
       </div>
     </div>
-
   );
 };
 
 DialogContentMobile.propTypes = {
+  dataPrice: PropTypes.object,
   fromDate: PropTypes.instanceOf(Date),
   toDate: PropTypes.instanceOf(Date),
   hoverDate: PropTypes.instanceOf(Date),
@@ -134,6 +137,7 @@ DialogContentMobile.propTypes = {
   startWeekDay: PropTypes.string,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
+  disableDate: PropTypes.instanceOf(Date),
   monthFormat: PropTypes.string,
   complsOpen: PropTypes.bool,
   isSingle: PropTypes.bool,
@@ -147,6 +151,7 @@ DialogContentMobile.propTypes = {
 };
 
 DialogContentMobile.defaultProps = {
+  dataPrice: null,
   fromDate: null,
   toDate: null,
   hoverDate: null,
@@ -154,12 +159,13 @@ DialogContentMobile.defaultProps = {
   startWeekDay: null,
   minDate: null,
   maxDate: null,
-  monthFormat: '',
+  disableDate: null,
+  monthFormat: "",
   complsOpen: false,
   isSingle: false,
   highlightToday: false,
-  weekDayFormat: '',
-  tooltip: '',
+  weekDayFormat: "",
+  tooltip: "",
 };
 
 export default DialogContentMobile;

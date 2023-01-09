@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import dayjs from 'dayjs';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import dayjs from "dayjs";
 
-import CalendarIcon from '../../assets/svg/calendar.svg';
-import PrevIcon from '../../assets/svg/prev.svg';
-import NextIcon from '../../assets/svg/next.svg';
+import CalendarIcon from "../../assets/svg/calendar.svg";
+import PrevIcon from "../../assets/svg/prev.svg";
+import NextIcon from "../../assets/svg/next.svg";
 
 const DateInput = ({
   handleClickDateInput,
@@ -30,21 +30,25 @@ const DateInput = ({
 
   useEffect(() => {
     if (value) {
-      let text = value.format('ddd, DD MMM');
+      let text = value.format("ddd, DD MMM");
       if (dateFormat) {
         text = value.format(dateFormat);
       }
       setFormattedDate(text);
 
-      if ((minDate && dayjs(minDate).add(1, 'day').isAfter(value, 'date'))
-        || (name === 'END_DATE' && value.isBefore(fromDate.add(1, 'day'), 'date'))
+      if (
+        (minDate && dayjs(minDate).add(1, "day").isAfter(value, "date")) ||
+        (name === "END_DATE" && value.isBefore(fromDate.add(1, "day"), "date"))
       ) {
         setDisablePrev(true);
       } else {
         setDisablePrev(false);
       }
 
-      if (maxDate && dayjs(maxDate).subtract(1, 'day').isBefore(value, 'date')) {
+      if (
+        maxDate &&
+        dayjs(maxDate).subtract(1, "day").isBefore(value, "date")
+      ) {
         setDisableNext(true);
       } else {
         setDisableNext(false);
@@ -56,12 +60,12 @@ const DateInput = ({
 
   function prevDate(e) {
     e.stopPropagation();
-    handleChangeDate('prev', value);
+    handleChangeDate("prev", value);
   }
 
   function nextDate(e) {
     e.stopPropagation();
-    handleChangeDate('next', value);
+    handleChangeDate("next", value);
   }
 
   function onDateInputFocus() {
@@ -70,12 +74,16 @@ const DateInput = ({
 
   return (
     <div
-      className={cx('date', { 'is-focus': isFocus, 'is-single': isSingle })}
+      className={cx("date", { "is-focus": isFocus, "is-single": isSingle })}
       role="button"
-      tabIndex={nonFocusable ? '-1' : tabIndex}
+      tabIndex={nonFocusable ? "-1" : tabIndex}
       onClick={handleClickDateInput}
       onFocus={onDateInputFocus}
-      id={name === 'START_DATE' ? 'start-date-input-button' : 'end-date-input-button'}
+      id={
+        name === "START_DATE"
+          ? "start-date-input-button"
+          : "end-date-input-button"
+      }
     >
       {showIcon && (
         <CalendarIcon className="icon-calendar" viewBox="0 0 24 24" />
@@ -90,7 +98,7 @@ const DateInput = ({
             type="button"
             className="btn-outline change-date-button"
             onClick={prevDate}
-            tabIndex={nonFocusable ? '-1' : '0'}
+            tabIndex={nonFocusable ? "-1" : "0"}
             disabled={disablePrev}
           >
             <PrevIcon viewBox="0 0 24 24" className="icon-arrow" />
@@ -99,7 +107,7 @@ const DateInput = ({
             type="button"
             className="btn-outline change-date-button"
             onClick={nextDate}
-            tabIndex={nonFocusable ? '-1' : '0'}
+            tabIndex={nonFocusable ? "-1" : "0"}
             disabled={disableNext}
           >
             <NextIcon viewBox="0 0 24 24" className="icon-arrow" />
@@ -131,20 +139,19 @@ DateInput.propTypes = {
 DateInput.defaultProps = {
   handleClickDateInput: () => {},
   showIcon: false,
-  tabIndex: '',
+  tabIndex: "",
   isFocus: false,
   value: null,
   placeholder: null,
   handleChangeDate: () => {},
-  dateFormat: '',
+  dateFormat: "",
   isSingle: false,
   onFocus: () => {},
-  name: '',
+  name: "",
   nonFocusable: false,
   fromDate: null,
   minDate: null,
   maxDate: null,
-
 };
 
 export default DateInput;
