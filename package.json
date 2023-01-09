@@ -1,7 +1,7 @@
 {
-  "name": "react-google-flight-datepicker-mobile",
+  "name": "pesanio-daily-price-date-picker",
   "version": "0.1",
-  "description": "An ReactJS implementation for Google Flight date-picker by Muhammad Syaifullah",
+  "description": "An ReactJS implementation for daily price feature by Muhammad Syaifullah",
   "author": "Muhammad Syaifullah",
   "license": "MIT",
   "homepage": "https://github.com/Akusyaiful/react-google-flight-datepicker",

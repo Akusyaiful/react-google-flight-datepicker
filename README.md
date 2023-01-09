@@ -1,33 +1,22 @@
-# react-google-flight-datepicker
-[![dependency status][deps-svg]][deps-url]
-[![dev dependency status][dev-deps-svg]][dev-deps-url]
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Downloads][downloads-image]][downloads-url]
+# pesanio-daily-price-date-picker
 
-Google flight date picker implemented in ReactJS
+An ReactJS implementation for daily price feature
 
 ### Demo
+
 - Live demo: https://codesandbox.io/s/react-google-flight-datepicker-zultp
 - To run demo on your computer:
   - Clone this repository
   - `yarn install`
   - `yarn run dev`
 
-### Screenshot
-
-
-####Desktop
-<video src="https://user-images.githubusercontent.com/1154740/199437644-560147f6-82db-4736-8ff9-fb6747a460a9.mov" width="500" autoplay></video>
-----
-####Mobile
-<video autoplay src="https://user-images.githubusercontent.com/1154740/199439704-c8cdb7db-8a6b-4f66-a3e0-f4b1f1fde10d.MOV" width="500"></video>
-
 ### Usage
 
 ##### RangeDatePicker
+
 ```jsx
-import { RangeDatePicker } from 'react-google-flight-datepicker';
-import 'react-google-flight-datepicker/dist/main.css';
+import { RangeDatePicker } from "react-google-flight-datepicker";
+import "react-google-flight-datepicker/dist/main.css";
 
 <RangeDatePicker
   startDate={new Date()}
@@ -42,26 +31,9 @@ import 'react-google-flight-datepicker/dist/main.css';
   disabled={false}
   className="my-own-class-name"
   startWeekDay="monday"
-/>
+/>;
 ```
 
-##### SingleDatePicker
-```jsx
-import { SingleDatePicker } from 'react-google-flight-datepicker';
-import 'react-google-flight-datepicker/dist/main.css';
-
-<SingleDatePicker
-  startDate={new Date()}
-  onChange={(startDate) => onDateChange(startDate)}
-  minDate={new Date(1900, 0, 1)}
-  maxDate={new Date(2100, 0, 1)}
-  dateFormat="D"
-  monthFormat="MMM YYYY"
-  startDatePlaceholder="Date"
-  disabled={false}
-  className="my-own-class-name"
-  startWeekDay="monday"
-/>
 ```
 ##### Props
 |Prop name |Prop type|Default value|Description|
@@ -84,16 +56,8 @@ singleCalendar | Bool | false | Only applicable on SingleDatePicker. When this p
 tooltip | String, React Component, Function | Display the tooltip when hovering on day element, you can pass string, component, or a function. The function will receive a Date object, so you can generate the content of tooltip.
 
 ### Author
-- David Tran - david@jslancer.com
+- Muhammad Syaifullah
 
 ### License
 MIT
-
-[package-url]: https://npmjs.org/package/react-google-flight-datepicker
-[npm-version-svg]: http://versionbadg.es/jslancerteam/react-google-flight-datepicker.svg
-[deps-svg]: https://david-dm.org/jslancerteam/react-google-flight-datepicker.svg
-[deps-url]: https://david-dm.org/jslancerteam/react-google-flight-datepicker
-[dev-deps-svg]: https://david-dm.org/jslancerteam/react-google-flight-datepicker/dev-status.svg
-[dev-deps-url]: https://david-dm.org/jslancerteam/react-google-flight-datepicker#info=devDependencies
-[downloads-image]: http://img.shields.io/npm/dm/react-google-flight-datepicker.svg
-[downloads-url]: http://npm-stat.com/charts.html?package=react-google-flight-datepicker
+```
