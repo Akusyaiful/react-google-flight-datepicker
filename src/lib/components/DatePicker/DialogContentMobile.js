@@ -22,6 +22,7 @@ const DialogContentMobile = ({
   highlightToday,
   tooltip,
   disableDate,
+  language,
 }) => {
   const [rowCount, setRowCount] = useState(2400);
   const minYear = minDate ? dayjs(minDate).year() : 1900;
@@ -63,6 +64,7 @@ const DialogContentMobile = ({
     return (
       <div style={style} id="wrapper-month">
         <MonthCalendar
+          language={language}
           dataPrice={dataPrice}
           month={month}
           year={year}
@@ -109,7 +111,7 @@ const DialogContentMobile = ({
   }
 
   function generateWeekDay() {
-    const arrWeekDay = getWeekDay(startWeekDay, weekDayFormat);
+    const arrWeekDay = getWeekDay(startWeekDay, weekDayFormat, language);
 
     return arrWeekDay.map((day, index) => (
       <div className="weekday" key={index}>
@@ -148,6 +150,7 @@ DialogContentMobile.propTypes = {
     PropTypes.node,
     PropTypes.func,
   ]),
+  language: PropTypes.string,
 };
 
 DialogContentMobile.defaultProps = {
@@ -166,6 +169,7 @@ DialogContentMobile.defaultProps = {
   highlightToday: false,
   weekDayFormat: "",
   tooltip: "",
+  language: "",
 };
 
 export default DialogContentMobile;

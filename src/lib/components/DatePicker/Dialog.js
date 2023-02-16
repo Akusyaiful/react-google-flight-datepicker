@@ -36,6 +36,7 @@ const Dialog = ({
   singleCalendar,
   tooltip,
   disableDate,
+  language,
 }) => {
   const [hideAnimation, setHideAnimation] = useState(false);
   const [dateChanged, setDateChanged] = useState();
@@ -125,6 +126,7 @@ const Dialog = ({
           isSingle={isSingle}
           highlightToday={highlightToday}
           tooltip={tooltip}
+          language={language}
         />
       </div>
       {!hideDialogFooter && (
@@ -144,7 +146,7 @@ const Dialog = ({
               onClick={submitButton}
               tabIndex="0"
             >
-              Save
+              {language === "en" ? "Save" : "Simpan"}
             </button>
           </div>
         </div>
@@ -189,6 +191,7 @@ Dialog.propTypes = {
     PropTypes.node,
     PropTypes.func,
   ]),
+  language: PropTypes.string,
 };
 
 Dialog.defaultProps = {
@@ -223,6 +226,7 @@ Dialog.defaultProps = {
   dateInputSeperator: null,
   singleCalendar: false,
   tooltip: "",
+  language: "",
 };
 
 export default Dialog;

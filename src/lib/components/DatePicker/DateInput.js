@@ -30,7 +30,7 @@ const DateInput = ({
 
   useEffect(() => {
     if (value) {
-      let text = value.format("ddd, DD MMM");
+      let text = value.format("ddd, D MMM");
       if (dateFormat) {
         text = value.format(dateFormat);
       }

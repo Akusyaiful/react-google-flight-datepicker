@@ -18,6 +18,7 @@ import RangeDatePicker from "./RangeDatePicker";
       maxDate={new Date("2023-12-31")}
       dateFormat="DD MMM"
       dataPrice="450 rb"
+      language="id"
       // monthFormat="MMM --- YY"
       tooltip={(date) => {
         return <div>{date.toDateString()}</div>;

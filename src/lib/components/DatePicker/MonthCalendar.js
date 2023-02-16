@@ -2,6 +2,7 @@ import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import dayjs from "dayjs";
+import "dayjs/locale/id";
 
 import Week from "./Week";
 import { getMonthInfo, getWeekDay } from "../../helpers";
@@ -29,6 +30,7 @@ const MonthCalendar = forwardRef(
       highlightToday,
       singleCalendar,
       handleHoverDay,
+      language,
     },
     ref
   ) => {
@@ -58,6 +60,7 @@ const MonthCalendar = forwardRef(
           highlightToday={highlightToday}
           handleHoverDay={handleHoverDay}
           ref={ref}
+          language={language}
         />
       ));
     }
@@ -83,8 +86,12 @@ const MonthCalendar = forwardRef(
       >
         <div className="month-name">
           {monthFormat
-            ? dayjs(`${year}-${month + 1}-1`).format(monthFormat)
-            : dayjs(`${year}-${month + 1}-1`).format("MMMM YYYY")}
+            ? dayjs(`${year}-${month + 1}-1`)
+                .locale(language)
+                .format(monthFormat)
+            : dayjs(`${year}-${month + 1}-1`)
+                .locale(language)
+                .format("MMMM YYYY")}
         </div>
         <div className="weekdays">{generateWeekDay()}</div>
         <div className="week-container">{generateWeek()}</div>
@@ -114,6 +121,7 @@ MonthCalendar.propTypes = {
   highlightToday: PropTypes.bool,
   singleCalendar: PropTypes.bool,
   handleHoverDay: PropTypes.func,
+  language: PropTypes.string,
 };
 
 MonthCalendar.defaultProps = {
@@ -137,6 +145,7 @@ MonthCalendar.defaultProps = {
   highlightToday: false,
   singleCalendar: false,
   handleHoverDay: () => {},
+  language: "",
 };
 
 export default MonthCalendar;

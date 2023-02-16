@@ -37,6 +37,7 @@ const RangeDatePicker = ({
   toggleDialog,
   disableDate,
   reset,
+  language,
 }) => {
   const [complsOpen, setComplsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -85,10 +86,12 @@ const RangeDatePicker = ({
   }
 
   function updateToDate(dateValue, shouldNotifyChange = false) {
-    setToDate(dateValue);
-    toDateRef.current = dateValue;
-    if (shouldNotifyChange) {
-      debounceNotifyChange();
+    if (dateValue?.toString() !== fromDate?.toString()) {
+      setToDate(dateValue);
+      toDateRef.current = dateValue;
+      if (shouldNotifyChange) {
+        debounceNotifyChange();
+      }
     }
   }
 
@@ -97,6 +100,7 @@ const RangeDatePicker = ({
   }, []);
 
   useEffect(() => {
+    console.log("dadasda");
     const _startDateJs = startDate ? dayjs(startDate) : null;
     fromDateRef.current = _startDateJs;
     updateFromDate(_startDateJs, false);
@@ -264,6 +268,7 @@ const RangeDatePicker = ({
             hideDialogFooter={hideDialogFooter}
             dateInputSeperator={dateInputSeperator}
             tooltip={tooltip}
+            language={language}
           />
         </DialogWrapper>
       </div>
@@ -304,6 +309,7 @@ RangeDatePicker.propTypes = {
     PropTypes.node,
     PropTypes.func,
   ]),
+  language: PropTypes.string,
 };
 
 RangeDatePicker.defaultProps = {
@@ -335,6 +341,7 @@ RangeDatePicker.defaultProps = {
   toggleDialog: () => {},
   reset: () => {},
   tooltip: "",
+  language: "",
 };
 
 export default RangeDatePicker;

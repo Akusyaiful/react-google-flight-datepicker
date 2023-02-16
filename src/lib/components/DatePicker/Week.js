@@ -27,6 +27,7 @@ const Week = forwardRef(
       highlightToday,
       handleHoverDay,
       disableDate,
+      language,
     },
     ref
   ) => {
@@ -87,6 +88,7 @@ const Week = forwardRef(
             weekIndex={weekIndex}
             handleHoverDay={handleHoverDay}
             ref={ref}
+            language={language}
           />
         );
       });
@@ -117,6 +119,7 @@ Week.propTypes = {
   weekIndex: PropTypes.number,
   highlightToday: PropTypes.bool,
   handleHoverDay: PropTypes.func,
+  language: PropTypes.language,
 };
 
 Week.defaultProps = {
@@ -138,6 +141,7 @@ Week.defaultProps = {
   weekIndex: 0,
   highlightToday: false,
   handleHoverDay: () => {},
+  language: "",
 };
 
 export default Week;

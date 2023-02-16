@@ -31,13 +31,10 @@ export function nextDayDate(date) {
   );
 }
 
-export function getWeekDay(startWeekDay, weekDayFormat) {
+export function getWeekDay(startWeekDay, _weekDayFormat, language) {
   const arrWeekDay =
-    weekDayFormat === "dd"
-      ? ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
-      : weekDayFormat === "ddd"
-      ? ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-      : [
+    language === "en"
+      ? [
           "Monday",
           "Tuesday",
           "Wednesday",
@@ -45,7 +42,8 @@ export function getWeekDay(startWeekDay, weekDayFormat) {
           "Friday",
           "Saturday",
           "Sunday",
-        ];
+        ]
+      : ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
 
   if (startWeekDay === "sunday") {
     const last = arrWeekDay.pop();
@@ -55,12 +53,12 @@ export function getWeekDay(startWeekDay, weekDayFormat) {
   return arrWeekDay;
 }
 
-export function numberSimple(input) {
+export function numberSimple(input, language) {
   if (input === null) {
     return "0";
   }
 
-  const suffixes = ["rb", "jt", "m"];
+  const suffixes = language === "id" ? ["rb", "jt", "m"] : ["k", "m", "b"];
   input = parseInt(input);
 
   if (input >= 1000 && input < 1000000) {

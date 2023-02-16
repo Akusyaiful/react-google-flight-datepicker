@@ -19,6 +19,7 @@ const Day = forwardRef(
       totalDay,
       highlight,
       handleHoverDay,
+      language,
     },
     ref
   ) => {
@@ -66,7 +67,7 @@ const Day = forwardRef(
         <div className="text-day">{dateIndex}</div>
         <div className="text-price">
           {dataPrice?.[stringDate]?.prices
-            ? numberSimple(dataPrice?.[stringDate]?.prices)
+            ? numberSimple(dataPrice?.[stringDate]?.prices, language)
             : "--"}
         </div>
       </div>
@@ -87,6 +88,7 @@ Day.propTypes = {
   totalDay: PropTypes.number,
   highlight: PropTypes.bool,
   handleHoverDay: PropTypes.func,
+  language: PropTypes.string,
 };
 
 Day.defaultProps = {
@@ -102,6 +104,7 @@ Day.defaultProps = {
   onHoverDate: () => {},
   highlight: false,
   handleHoverDay: () => {},
+  language: "",
 };
 
 export default Day;
