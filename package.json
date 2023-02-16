@@ -1,6 +1,6 @@
 {
   "name": "pesanio-daily-price-date-picker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An ReactJS implementation for daily price feature by Muhammad Syaifullah",
   "author": "Muhammad Syaifullah",
   "license": "MIT",
@@ -151,5 +151,12 @@
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akusyaiful/react-google-flight-datepicker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Akusyaiful/react-google-flight-datepicker/issues"
   }
 }

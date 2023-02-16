@@ -78,6 +78,10 @@ const RangeDatePicker = ({
   const debounceNotifyChange = debounce(notifyChange, 20);
 
   function updateFromDate(dateValue, shouldNotifyChange = false) {
+    if (dateValue?.toString() === toDate?.toString()) {
+      setToDate(null);
+      toDateRef.current = null;
+    }
     setFromDate(dateValue);
     fromDateRef.current = dateValue;
     if (shouldNotifyChange) {
@@ -100,7 +104,6 @@ const RangeDatePicker = ({
   }, []);
 
   useEffect(() => {
-    console.log("dadasda");
     const _startDateJs = startDate ? dayjs(startDate) : null;
     fromDateRef.current = _startDateJs;
     updateFromDate(_startDateJs, false);
