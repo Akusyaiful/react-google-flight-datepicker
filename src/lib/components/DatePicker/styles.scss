@@ -658,7 +658,6 @@
     max-height: 100%;
     position: fixed;
     left: 50%;
-    margin-left: -220px;
     bottom: 10px;
     top: 100%;
     display: flex;
@@ -669,7 +668,7 @@
 
     &.open {
       transition: all 0.2s ease-out;
-      transform: translate(0, -100%);
+      transform: translate(-50%, -100%);
       animation: none;
     }
 
@@ -744,11 +743,5 @@
   .dialog-footer {
     padding: 16px;
     box-shadow: rgba(0, 0, 0, 0.5) 0px -4px 10px -10px;
-  }
-
-  @media screen and (max-width: 768px) {
-    .dialog-date-picker {
-      margin-left: -213px;
-    }
   }
 }
